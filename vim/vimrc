@@ -1,4 +1,4 @@
-" Comments in Vimscript start with a `"`.
+"" Comments in Vimscript start with a `"`.
 
 " If you open this file in Vim, it'll be syntax highlighted for you.
 
@@ -18,7 +18,11 @@ Plug 'ervandew/supertab'
 "Plug 'Shougo/deoplete.nvim'
 "Plug 'roxma/nvim-yarp'
 "Plug 'roxma/vim-hug-neovim-rpc'
-
+"Plug 'ycm-core/YouCompleteMe'
+"
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" markdown preview
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 
 " ctrl p
 Plug 'ctrlpvim/ctrlp.vim'
@@ -50,12 +54,16 @@ call plug#end()
 " map ctrl-n to open nerdtree side
 nnoremap <C-n> :NERDTreeVCS<CR>
 " open nerdtree automatically when open vim
-autocmd VimEnter * NERDTreeVCS | wincmd p
+" autocmd VimEnter * NERDTreeVCS | wincmd p
 " close vim when nerdtree is the last tab
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 " ====================== Plug 2: easymotion ====================
 "nmap s <Plug>(easymotion-prefix) 
+"
+" ====================== plug markdown preview =================
+let g:instant_markdown_mathjax = 1
+nnoremap <C-m> :InstantMarkdownPreview<CR>
 " ====================== color scheme ==========================
 if (empty($TMUX))
   if (has("nvim"))
@@ -67,9 +75,10 @@ if (empty($TMUX))
   endif
 endif
 
-"set t_Co=256
-colorscheme gruvbox
-" Turn on syntax highlighting.
+set t_Co=256
+"colorscheme gruvbox
+colorscheme evening
+"Turn on syntax highlighting.
 syntax on
 
 
@@ -77,6 +86,8 @@ let g:deoplete#enable_at_startup=1
 " Turn on syntax highlighting.
 set shortmess+=I
 
+" set system clipboard
+set clipboard^=unnamed,unnamedplus
 " Show line numbers.
 set number
 
@@ -104,12 +115,22 @@ set backspace=indent,eol,start
 " for more information on this.
 set hidden
 
+set wildmenu
+
+hi Normal ctermfg=252 ctermbg=none
 " This setting makes search case-insensitive when all characters in the string
 " being searched are lowercase. However, the search becomes case-sensitive if
 " it contains any capital letters. This makes searching more convenient.
 set ignorecase
 set smartcase
 
+" space and tabs
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+" set expandtab
 " Enable searching as you type, rather than waiting till you press enter.
 set incsearch
 " Highlight the search word when input
