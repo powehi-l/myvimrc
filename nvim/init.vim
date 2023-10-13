@@ -1,7 +1,7 @@
 call plug#begin()
 
 "Plug 'tpope/vim-sensible'
-"Plug 'Yggdroot/indentLine'
+ Plug 'Yggdroot/indentLine'
 
 "plug for nvim with latex
  Plug 'lervag/vimtex'
@@ -22,7 +22,10 @@ call plug#begin()
 "
 " "plug for comment some code
  Plug 'numToStr/Comment.nvim'
-"
+
+ "plug for highlight the paraness
+ Plug 'luochen1990/rainbow'
+
 " "plug for airline
  Plug 'vim-airline/vim-airline'       
  Plug 'vim-airline/vim-airline-themes' "airline 的主题
@@ -47,13 +50,21 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "================= vimtex plug ===================
 let g:tex_flavor = 'latex'
 let g:vimtex_view_general_viewer = 'SumatraPDF'
+let g:vimtex_view_general_options
+\ = '-reuse-instance -forward-search @tex @line @pdf'
+"let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 let g:vimtex_quickfix_mode=0
+let g:vimtex_view_skim_sync=1
 
-set conceallevel=2
-let g:tex_conceal='abdmg'
+" set conceallevel=2
+" let g:tex_conceal='abdmg'
 
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_start_level = 2
+"================= indent plug ==================
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+
+"================= rainbow plug =================
+let g:rainbow_active = 1
 
 "================= common set ====================
 "-------- theme set -------
@@ -130,11 +141,11 @@ set signcolumn=yes
 " no select by `"suggest.noselect": true` in your configuration file
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
-" inoremap <silent><expr> <TAB>
-"       \ coc#pum#visible() ? coc#pum#next(1) :
-"       \ CheckBackspace() ? "\<Tab>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+ inoremap <silent><expr> <TAB>
+       \ coc#pum#visible() ? coc#pum#next(1) :
+       \ CheckBackspace() ? "\<Tab>" :
+       \ coc#refresh()
+ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
